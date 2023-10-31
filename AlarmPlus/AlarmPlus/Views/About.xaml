@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AlarmPlus.Views.About"
+             Title="About">
+    <VerticalStackLayout Padding="10" Spacing="10">
+        <Border  >
+             <Label Text="Privacy Policy"  TextColor="Blue" FontSize="Medium" HorizontalTextAlignment="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding TapCommand}"
+                                      CommandParameter="https://www.oncloudeleven.com/apps/reminder-alarm-plus"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+
+        </Border>
+       
+
+<Border>
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span  Text="Reminder app will allow you to set Reminders, Alarm and TODO items all at one place.Share with your contacts.
+                       Alarm will read the text written in the Sound field, using the Text to speech technology.
+                                            
+                      please send your feedback and questions to" />
+                    <Span Text=" anshuapps@gmail.com" TextColor="Green" FontSize="Medium" TextDecorations="Underline"/>
+
+                    
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AlarmPlus.Views.Alarm"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Unloaded="ContentPage_Unloaded"
+             Loaded="ContentPage_Loaded"
+             Title="Alarm">
+    <VerticalStackLayout Spacing="20">
+        <Label 
+            Text="Reminder Alert!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <toolkit:MediaElement   x:Name="mediaelement"
+                                  ShouldAutoPlay="True" ShouldLoopPlayback="True"
+                                  ShouldShowPlaybackControls="True"
+                                  IsVisible="false"
+                                  MinimumWidthRequest="200" MinimumHeightRequest="300"  BackgroundColor="Grey">
+
+
+        </toolkit:MediaElement>
+        <Editor x:Name="edtDescAlarm" AutoSize="TextChanges" MinimumWidthRequest="400"/>
+        <Editor x:Name="edtSound" AutoSize="TextChanges" MinimumWidthRequest="400"/>
+        <Button x:Name="btnAlarmCancel" Text="Stop" MinimumWidthRequest="50" Clicked="btnAlarmCancel_Clicked"/>
+        <Button x:Name="btnEmailmaui" Text="Email" MinimumWidthRequest="50" Clicked="btnEmailmaui_Clicked"/>
+    </VerticalStackLayout>
+</ContentPage>

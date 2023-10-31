@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:AlarmPlus.Models"
+             x:Class="AlarmPlus.Views.Reminders"
+            x:Name="pageRems"
+            
+             Title="Reminders">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="About" x:Name="tbAbout"
+                  Clicked="tbAbout_Clicked" Order="Secondary"/>
+        <ToolbarItem Text="Import" x:Name="tbImport"
+                  Clicked="tbImport_Clicked" Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    <Grid RowDefinitions="1*,1*,40"  RowSpacing="5" Padding="5">
+
+
+        <CollectionView x:Name="RemsCLV"
+                            ItemsSource="{Binding reminders}"
+                            VerticalOptions="Fill"
+                            SelectionMode="Single"
+                            SelectionChanged="RemsCLV_SelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Reminder">
+                    <Border
+                        StrokeThickness="2"                       
+                        Padding="5,1"
+                        HorizontalOptions="Center" MinimumWidthRequest="380" MinimumHeightRequest="80">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15,15,15,15" />
+                        </Border.StrokeShape>
+
+                        <Grid RowDefinitions="1*,2*,1*" Padding="5" RowSpacing="1" >
+                            <Label  HorizontalTextAlignment="Center" FontSize="Caption"  FontAttributes="Bold" Text="{Binding Name}"></Label>
+                            <HorizontalStackLayout Grid.Row="1" Spacing="25">
+                                <Label HorizontalTextAlignment="Center"
+                                            FontSize="Subtitle"
+                                            
+                                            FontAttributes="Bold"
+                                            Text="{Binding ReminderDate,  StringFormat='{0:ddd, MMM d, yyyy}'}"></Label>
+
+                                <Label HorizontalTextAlignment="End"
+                                           
+                                           FontSize="Subtitle"
+                                           FontAttributes="Bold"
+                                           Text="{Binding ReminderTime}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding  ReminderTime,StringFormat='{}{0:00}:{1:00;00}'}" ></Span>
+
+                                        </FormattedString>
+
+                                    </Label.FormattedText>
+
+                                </Label>
+                            </HorizontalStackLayout>
+
+
+                            <Label HorizontalTextAlignment="Center" Grid.Row="2">
+
+                                <Label.Text>
+
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="ReminderWeekDays"  />
+                                        <Binding Path="ReminderMonths" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Frame Grid.Row="1" x:Name="frmEdtImport" BorderColor="Blue" IsVisible="false">
+            <Editor  x:Name="edtImportR" TextChanged="edtImportR_TextChanged" AutoSize="TextChanges"  MinimumWidthRequest="400" MinimumHeightRequest="100" Unfocused="edtImportR_Unfocused"></Editor>
+        </Frame>
+        <HorizontalStackLayout Grid.Row="2" Spacing="10" HorizontalOptions="CenterAndExpand">
+            <Button  x:Name="btnAddReminder" CornerRadius="10" BorderWidth="1" 
+                     Text="Add Reminder" Clicked="btnAddReminder_Clicked" ></Button>
+            <Button x:Name="btnShowAllReminders" CornerRadius="10" BorderWidth="1"
+                     Text="Show All Reminders" Clicked="btnShowAllReminders_Clicked" ></Button>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

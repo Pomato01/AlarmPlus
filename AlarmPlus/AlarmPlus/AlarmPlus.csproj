@@ -1,0 +1,141 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>AlarmPlus</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>AlarmPlus</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.sharmansh.alarmplus</ApplicationId>
+		<ApplicationIdGuid>ba20c1cc-8cdb-465d-944c-6dc9e167d4c3</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>6.0</ApplicationDisplayVersion>
+		<ApplicationVersion>6</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<Description>Alarm to handle multiple situations</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	  <CodesignKey>iPhone Developer</CodesignKey>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	  <WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	  <CodesignKey>Mac Developer</CodesignKey>
+	  <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	  <CodesignKey>iPhone Developer</CodesignKey>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	  <DebugSymbols>true</DebugSymbols>
+	  <WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningKeyStore>/Users/anshuapps/Projects/AndroidKeys/key2023.jks</AndroidSigningKeyStore>
+	  <AndroidSigningStorePass>Stores#12</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>keyuc</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>Stores#12</AndroidSigningKeyPass>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.5" />
+		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="2.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Data\" />
+	  <None Remove="Views\" />
+	  <None Remove="Models\" />
+	  <None Remove="Utilities\" />
+	  <None Remove="Platforms\Android\Resources\drawable\" />
+	  <None Remove="Platforms\Android\Resources\drawable\appIcon.png" />
+	  <None Remove="Platforms\Android\Resources\layout\" />
+	  <None Remove="Resources\AppIcon\appicon_default.svg" />
+	  <None Remove="Resources\AppIcon\appiconfg.svg" />
+	  <None Remove="Resources\appiconfg_default.svg" />
+	  <None Remove="Assets.xcassets\Contents.json" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-512 1.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-32 1.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-32.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-1024.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-512.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-128.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-64.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-256.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-16.png" />
+	  <None Remove="Assets.xcassets\AppIcon.appiconset\AlarmPlus-256 1.png" />
+	  <None Remove="Resources\Images\icon_about.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Data\" />
+	  <Folder Include="Views\" />
+	  <Folder Include="Models\" />
+	  <Folder Include="Utilities\" />
+	  <Folder Include="Platforms\Android\Resources\drawable\" />
+	  <Folder Include="Platforms\Android\Resources\layout\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Platforms\Android\Resources\drawable\appIcon.png" />
+	  <BundleResource Include="Resources\AppIcon\appicon_default.svg" />
+	  <BundleResource Include="Resources\AppIcon\appiconfg.svg" />
+	  <BundleResource Include="Resources\appiconfg_default.svg" />
+	  <BundleResource Include="Resources\Images\icon_about.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ImageAsset Include="Assets.xcassets\Contents.json" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-512 1.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-32 1.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-32.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-1024.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-512.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-128.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-64.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-256.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-16.png" />
+	  <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AlarmPlus-256 1.png" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,11 @@
+<ListOfTaskListEntry>
+  <TaskListEntry file="" description="Keep it alive even though the app is closed." />
+  <TaskListEntry file="" description="Text to sound" completed="True" />
+  <TaskListEntry file="" description="Android sound format. why aiff not sounding in android." />
+  <TaskListEntry file="" description="beautify" />
+  <TaskListEntry file="" description="drop down for mothly and weekly" />
+  <TaskListEntry file="" description="logo" completed="True" />
+  <TaskListEntry file="" description="Prepare for deploy" completed="True" />
+  <TaskListEntry file="" description="how to send email and text." />
+  <TaskListEntry file="" />
+</ListOfTaskListEntry>

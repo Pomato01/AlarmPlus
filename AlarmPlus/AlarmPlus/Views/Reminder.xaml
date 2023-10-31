@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AlarmPlus.Views.Reminder"
+             xmlns:models="clr-namespace:AlarmPlus.Models"
+             x:DataType="models:Reminder"
+             Title="Reminders" Loaded="ContentPage_Loaded" >
+    <ContentPage.ToolbarItems>
+    <ToolbarItem  Text="Share" x:Name="tbShare"
+                   Clicked="tbShare_Clicked"/>
+        <ToolbarItem Text="Cancel" x:Name="tbCancel"
+                   Clicked="tbCancel_Clicked"/>
+</ContentPage.ToolbarItems>
+    <ScrollView  >
+        <VerticalStackLayout  Spacing="1" Padding="20" VerticalOptions="StartAndExpand" >
+            <Frame>
+                <VerticalStackLayout >
+                    <HorizontalStackLayout Spacing="20">
+                        <Label Text="Title" VerticalOptions="Center"/>
+                        <Entry Text="{Binding Name}"  VerticalOptions="Center"  MinimumWidthRequest="200"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="18" IsVisible="False">
+                        <Label Text="Time" VerticalOptions="Center" />
+                        <Entry Text="{Binding Time}" VerticalOptions="Center" MinimumWidthRequest="200"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="20">
+                        <DatePicker x:Name="dpick" Date="{Binding ReminderDate}"  HorizontalOptions="Start" MinimumWidthRequest="200" AnchorX="100" DateSelected="dpick_DateSelected"></DatePicker>
+                        <TimePicker x:Name="tpick" Time="{Binding ReminderTime}" Format="t" HorizontalOptions="EndAndExpand"   PropertyChanged="tpick_PropertyChanged"></TimePicker>
+
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="18" IsVisible="False">
+                        <Label Text="Time" VerticalOptions="Center" />
+                        <Entry Text="{Binding TimeString, StringFormat='{0:ddd, MMM d, yyyy     hh:mm tt}'}" VerticalOptions="Center" MinimumWidthRequest="200"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Detail" VerticalOptions="Center"/>
+                        <Entry Text="{Binding Desc}" MinimumWidthRequest="200"  />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="2">
+                        <Label Text="End On" VerticalOptions="Center"/>
+                        <Entry Text="{Binding EndDate}" x:Name="entEndDate" MinimumWidthRequest="200" IsEnabled="False"/>
+                        <Switch IsToggled="False" x:Name="swEndDate"  Toggled="swEndDate_Toggled"></Switch>
+
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Emails" VerticalOptions="Center"/>
+                        <Entry Text="{Binding Emails}" MinimumWidthRequest="200"  />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+            <!--  <HorizontalStackLayout>
+                <CheckBox x:Name="chRepeat" />
+                <Label Text="Repeat" VerticalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                     Binding="{Binding Source={x:Reference chRepeat}, Path=IsChecked}"
+                     Value="true">
+                            <Setter Property="FontAttributes"
+                    Value="Italic, Bold" />
+                            <Setter Property="FontSize"
+                    Value="18" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+            </HorizontalStackLayout> -->
+            <VerticalStackLayout Spacing="3" x:Name="vlayRepeat" >
+                <!-- <BoxView x:Name="box" Color="Blue" CornerRadius="10,0,20,20" VerticalOptions="Center" HorizontalOptions="Center"
+                         MinimumWidthRequest="100"
+                         MinimumHeightRequest="100"
+                         >
+                    
+
+                </BoxView>-->
+
+                <Frame x:Name="frame"
+                    
+                    Padding="2">
+                    <VerticalStackLayout  >
+                        <HorizontalStackLayout >
+                            <Switch IsToggled="False" x:Name="swRepeat"   HorizontalOptions="Start" Toggled="swRepeat_Toggled" ></Switch>
+                            <Label Text="Weekly" VerticalOptions="Center"></Label>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout x:Name="htChecks1">
+
+                            <CheckBox x:Name="chM"  CheckedChanged="chM_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Mon" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chTu" CheckedChanged="chTu_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Tue" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chW" CheckedChanged="chW_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Wed" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chTh" CheckedChanged="chTh_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Thu" VerticalOptions="Center"></Label>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout x:Name="htChecks2">
+                            <CheckBox x:Name="chF" CheckedChanged="chF_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Fri" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chSat" CheckedChanged="chSat_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Sat" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chSun" CheckedChanged="chSun_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Sun" VerticalOptions="Center"></Label>
+
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Switch IsToggled="False" x:Name="swMonthly"   HorizontalOptions="Start" Toggled="swMonthly_Toggled_1" ></Switch>
+                            <Label Text="Monthly" VerticalOptions="Center"></Label>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout x:Name="htChecks3">
+                            <CheckBox x:Name="chJan" CheckedChanged="chJan_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Jan" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chFeb" CheckedChanged="chFeb_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Feb" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chMar" CheckedChanged="chMar_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Mar" VerticalOptions="Center"></Label>
+
+                            <CheckBox x:Name="chApr" CheckedChanged="chApr_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Apr" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chMay" CheckedChanged="chMay_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="May" VerticalOptions="Center"></Label>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout x:Name="htChecks4">
+                            <CheckBox x:Name="chJune" CheckedChanged="chJune_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Jun" VerticalOptions="Center"></Label>
+
+                            <CheckBox x:Name="chJuly" CheckedChanged="chJuly_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="July" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chAug" CheckedChanged="chAug_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Aug" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chSep" CheckedChanged="chSep_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Sep" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chOct" CheckedChanged="chOct_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Oct" VerticalOptions="Center"></Label>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout x:Name="htChecks5">
+                            <CheckBox x:Name="chNov" CheckedChanged="chNov_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Nov" VerticalOptions="Center"></Label>
+                            <CheckBox x:Name="chDec" CheckedChanged="chDec_CheckedChanged" IsEnabled="False"></CheckBox>
+                            <Label Text="Dec" VerticalOptions="Center"></Label>
+                        </HorizontalStackLayout>
+
+
+
+
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+
+
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout Spacing="50" IsVisible="False">
+                <Label Text="Phone" VerticalOptions="Center" />
+                <Entry Text="{Binding Phone}"
+                    Keyboard="Telephone"
+                    MinimumWidthRequest="200"
+                    VerticalOptions="FillAndExpand"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="55" IsVisible="False">
+                <Label  Text="Email"  VerticalOptions="Center"/>
+                <Entry  Text="{Binding Emails}"
+                VerticalOptions="Center"
+                MinimumWidthRequest="200" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="8">
+                <Label Text="Sound" VerticalOptions="Center" />
+                <Editor
+                Text="{Binding SoundFile}"
+                    Placeholder="Enter text you want to hear when alarm rings."
+                    AutoSize="TextChanges"
+                VerticalOptions="Center"
+                MinimumWidthRequest="200"></Editor>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="10" Margin="10">
+                <Button x:Name="btnSave" Text="Add Reminder" BorderWidth="1" 
+                    Clicked="btnSave_Clicked" />
+                <Button x:Name="btnDelete" Text="Delete" BorderWidth="1" 
+                    Clicked="btnDelete_Clicked" />
+                <Button IsVisible="false" x:Name="btnCancel" Text="Cancel" BorderWidth="1" 
+                    Clicked="btnCancel_Clicked"/>
+                
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>
